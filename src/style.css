@@ -61,11 +61,15 @@ h1 {
   margin-inline: auto;
   background-color: hsl(0, 0%, 20%);
   user-select: none;
+  --border: 1px solid hsl(0, 0%, 30%);
+  border-top: var(--border);
+  border-right: var(--border);
 }
 
 .grid > * {
   margin-top: 0;
-  border: 1px solid hsl(0, 0%, 30%);
+  border-bottom: var(--border);
+  border-left: var(--border);
 }
 
 button {
