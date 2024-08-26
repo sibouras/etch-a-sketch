@@ -1,5 +1,8 @@
 /** @type {HTMLDivElement} */
 const gridContainer = document.querySelector('.grid')
+/** @type {HTMLInputElement} */
+const range = document.querySelector('input[type="range"]')
+const rangeSpan = document.querySelector('.range-span')
 
 function fillGrid(size) {
   gridContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`
@@ -38,4 +41,17 @@ gridContainer.addEventListener('mousedown', (e) => {
   ) {
     e.target.style.backgroundColor = 'blue'
   }
+})
+
+range.addEventListener('input', (e) => {
+  /** @type {HTMLInputElement} */
+  const target = e.target
+  rangeSpan.textContent = `${target.value} x ${target.value}`
+})
+
+range.addEventListener('change', (e) => {
+  /** @type {HTMLInputElement} */
+  const target = e.target
+  gridContainer.innerHTML = ''
+  fillGrid(target.value)
 })

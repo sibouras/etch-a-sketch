@@ -44,6 +44,7 @@ a:hover {
 }
 
 h1 {
+  padding-top: 0.5rem;
   font-size: 3rem;
   text-align: center;
 }
@@ -52,13 +53,15 @@ h1 {
   max-width: 1000px;
   margin-inline: auto;
   padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .grid {
   display: grid;
   min-height: 500px;
-  max-width: 500px;
-  margin-inline: auto;
+  min-width: 500px;
   background-color: hsl(0, 0%, 20%);
   user-select: none;
   --border: 1px solid hsl(0, 0%, 30%);
@@ -91,6 +94,24 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.settings {
+  display: flex;
+  gap: 10px;
+
+  * {
+    margin-top: 0;
+  }
+
+  input[type="range"] {
+    width: 150px;
+  }
+
+  /* going from 9 to 10 causes the span to move */
+  .range-span {
+    min-width: 51px;
+  }
 }
 
 @media (prefers-color-scheme: light) {
