@@ -13,8 +13,18 @@
     <div class="container">
       <div class="grid"></div>
       <div class="settings">
-        <input type="range" value="32" min="2" max="64" />
-        <span class="range-span">32 x 32</span>
+        <div class="color-container">
+          <span>pick:</span>
+          <input type="color" value="#ff0000" id="input-color" />
+        </div>
+        <button>Darken</button>
+        <button>Raindbow</button>
+        <button>Eraser</button>
+        <button>Clear</button>
+        <div class="range-container">
+          <input type="range" value="32" min="2" max="64" />
+          <span class="range-span">32 x 32</span>
+        </div>
       </div>
     </div>
   </body>
