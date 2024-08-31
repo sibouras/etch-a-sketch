@@ -100,19 +100,36 @@ button:focus-visible {
 .settings {
   margin-top: 0;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
+  row-gap: 20px;
 
   * {
     margin-top: 0;
   }
 
-  input[type="range"] {
-    width: 150px;
+  .color-container {
+    padding-inline: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    input[type="color"] {
+      border: none;
+      /* flex-grow: 1; */
+    }
   }
 
-  /* going from 9 to 10 causes the span to move */
-  .range-span {
-    min-width: 51px;
+  .range-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input[type="range"] {
+      width: 150px;
+    }
   }
 }
 
@@ -135,5 +152,16 @@ button:focus-visible {
   .container {
     flex-direction: row-reverse;
     justify-content: flex-end;
+  }
+
+  .settings {
+    margin-right: 30px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    .range-container {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
   }
 }
