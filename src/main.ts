@@ -1,21 +1,13 @@
-// @ts-check
-const gridContainer = /** @type {HTMLDivElement} */ (
-  document.querySelector('.grid')
-)
-const range = /** @type {HTMLInputElement} */ (
-  document.querySelector('input[type=range]')
-)
-const rangeSpan = /** @type {HTMLSpanElement} */ (
-  document.querySelector('.range-span')
-)
-const inputColor = /** @type {HTMLInputElement} */ (
-  document.querySelector('input[type=color]')
-)
+const gridContainer = document.querySelector('.grid') as HTMLDivElement
+const range = document.querySelector('input[type=range]') as HTMLInputElement
+const rangeSpan = document.querySelector('.range-span') as HTMLSpanElement
+const inputColor = document.querySelector(
+  'input[type=color]',
+) as HTMLInputElement
 
 let color = inputColor.value
 
-/** @param {number} size  */
-function fillGrid(size) {
+function fillGrid(size: number) {
   gridContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`
   for (let i = 0; i < size * size; i++) {
     const gridElement = document.createElement('div')
@@ -55,17 +47,15 @@ gridContainer.addEventListener('mousedown', (e) => {
 })
 
 range.addEventListener('input', (e) => {
-  const target = /** @type {HTMLInputElement} */ (e.target)
+  const target = e.target as HTMLInputElement
   rangeSpan.textContent = `${target.value} x ${target.value}`
 })
 
 range.addEventListener('change', (e) => {
-  const target = /** @type {HTMLInputElement} */ (e.target)
   gridContainer.innerHTML = ''
-  fillGrid(target.valueAsNumber)
+  fillGrid((e.target as HTMLInputElement).valueAsNumber)
 })
 
 inputColor.addEventListener('input', (e) => {
-  const target = /** @type {HTMLInputElement} */ (e.target)
-  color = target.value
+  color = (e.target as HTMLInputElement).value
 })
