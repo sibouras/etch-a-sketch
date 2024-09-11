@@ -71,7 +71,6 @@ function handleMouseDown(e: MouseEvent) {
       const [r, g, b] = backgroundColor.match(/\.?\d+/g) || []
       // use rgba instead of opacity because opacity applies to borders
       cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${cell.dataset.darken})`
-      cell.dataset.hexColor = inputHexColor
     }
   }
 }
