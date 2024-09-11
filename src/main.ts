@@ -4,9 +4,9 @@ const rangeSpan = document.querySelector('.range-span') as HTMLSpanElement
 const inputColor = document.querySelector(
   'input[type=color]',
 ) as HTMLInputElement
-const darkenBtn = document.querySelector('#darken') as HTMLButtonElement
-const rainbowBtn = document.querySelector('#rainbow') as HTMLButtonElement
-const eraserBtn = document.querySelector('#eraser') as HTMLButtonElement
+const modeBtns = document.querySelectorAll(
+  '.mode',
+) as NodeListOf<HTMLButtonElement>
 
 let inputHexColor = inputColor.value
 let currentMode = 'color'
@@ -96,18 +96,20 @@ range.addEventListener('change', (e) => {
 inputColor.addEventListener('input', (e) => {
   inputHexColor = (e.target as HTMLInputElement).value
   currentMode = 'color'
-  darkenBtn.classList.remove('active')
-  rainbowBtn.classList.remove('active')
-  eraserBtn.classList.remove('active')
+  for (const btn of modeBtns) {
+    btn.classList.remove('active')
+  }
 })
 
-function handleModeChange(mode: string, btn: HTMLButtonElement) {
+function handleModeChange(e: MouseEvent) {
+  const btn = e.target as HTMLButtonElement
+  const mode = btn.id
   if (currentMode === mode) {
     currentMode = 'color'
     btn.classList.remove('active')
   } else {
     currentMode = mode
-    for (const otherBtn of [darkenBtn, rainbowBtn, eraserBtn]) {
+    for (const otherBtn of modeBtns) {
       if (otherBtn !== btn) {
         otherBtn.classList.remove('active')
       }
@@ -116,14 +118,6 @@ function handleModeChange(mode: string, btn: HTMLButtonElement) {
   }
 }
 
-darkenBtn.addEventListener('click', () => {
-  handleModeChange('darken', darkenBtn)
-})
-
-rainbowBtn.addEventListener('click', () => {
-  handleModeChange('rainbow', rainbowBtn)
-})
-
-eraserBtn.addEventListener('click', () => {
-  handleModeChange('eraser', eraserBtn)
-})
+for (const btn of modeBtns) {
+  btn.addEventListener('click', handleModeChange)
+}
