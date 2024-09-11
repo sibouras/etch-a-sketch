@@ -5,9 +5,14 @@ const inputColor = document.querySelector(
   'input[type=color]',
 ) as HTMLInputElement
 const darkenBtn = document.querySelector('#darken') as HTMLButtonElement
+const rainbowBtn = document.querySelector('#rainbow') as HTMLButtonElement
 
 let inputHexColor = inputColor.value
 let currentMode = 'color'
+
+function random(num: number) {
+  return Math.floor(Math.random() * num)
+}
 
 function fillGrid(size: number) {
   gridContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`
@@ -40,6 +45,13 @@ function handleMouseDown(e: MouseEvent) {
       return
     }
 
+    if (currentMode === 'rainbow') {
+      // cell.style.backgroundColor = `rgb(${random(256)}, ${random(256)}, ${random(256)})`
+      cell.style.backgroundColor = `hsl(${random(360)}, 95%, 50%)`
+      cell.dataset.darken = '1' // reset the opacity
+      return
+    }
+
     const darkenValue = Number.parseFloat(cell.dataset.darken as string)
     // the cell needs to be colored to darken it
     if (
@@ -57,9 +69,7 @@ function handleMouseDown(e: MouseEvent) {
   }
 }
 
-gridContainer.addEventListener('mouseover', (e) => {
-  handleMouseDown(e)
-})
+gridContainer.addEventListener('mouseover', handleMouseDown)
 
 gridContainer.addEventListener('mousedown', (e) => {
   // prevent drag/drop operation: https://w3c.github.io/uievents/#event-type-mousedown
@@ -81,14 +91,27 @@ inputColor.addEventListener('input', (e) => {
   inputHexColor = (e.target as HTMLInputElement).value
   currentMode = 'color'
   darkenBtn.classList.remove('active')
+  rainbowBtn.classList.remove('active')
 })
 
 darkenBtn.addEventListener('click', () => {
-  if (currentMode === 'color') {
+  if (currentMode === 'darken') {
+    currentMode = 'color'
+    darkenBtn.classList.remove('active')
+  } else {
     currentMode = 'darken'
     darkenBtn.classList.add('active')
-  } else {
+    rainbowBtn.classList.remove('active')
+  }
+})
+
+rainbowBtn.addEventListener('click', () => {
+  if (currentMode === 'rainbow') {
     currentMode = 'color'
+    rainbowBtn.classList.remove('active')
+  } else {
+    currentMode = 'rainbow'
+    rainbowBtn.classList.add('active')
     darkenBtn.classList.remove('active')
   }
 })
