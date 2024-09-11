@@ -6,6 +6,7 @@ const inputColor = document.querySelector(
 ) as HTMLInputElement
 const darkenBtn = document.querySelector('#darken') as HTMLButtonElement
 const rainbowBtn = document.querySelector('#rainbow') as HTMLButtonElement
+const eraserBtn = document.querySelector('#eraser') as HTMLButtonElement
 
 let inputHexColor = inputColor.value
 let currentMode = 'color'
@@ -41,13 +42,18 @@ function handleMouseDown(e: MouseEvent) {
   ) {
     if (currentMode === 'color') {
       cell.style.backgroundColor = inputHexColor
-      cell.dataset.darken = '1' // reset the opacity
-      return
     }
 
     if (currentMode === 'rainbow') {
       // cell.style.backgroundColor = `rgb(${random(256)}, ${random(256)}, ${random(256)})`
       cell.style.backgroundColor = `hsl(${random(360)}, 95%, 50%)`
+    }
+
+    if (currentMode === 'eraser') {
+      cell.removeAttribute('style')
+    }
+
+    if (currentMode !== 'darken') {
       cell.dataset.darken = '1' // reset the opacity
       return
     }
@@ -92,6 +98,7 @@ inputColor.addEventListener('input', (e) => {
   currentMode = 'color'
   darkenBtn.classList.remove('active')
   rainbowBtn.classList.remove('active')
+  eraserBtn.classList.remove('active')
 })
 
 darkenBtn.addEventListener('click', () => {
@@ -102,6 +109,7 @@ darkenBtn.addEventListener('click', () => {
     currentMode = 'darken'
     darkenBtn.classList.add('active')
     rainbowBtn.classList.remove('active')
+    eraserBtn.classList.remove('active')
   }
 })
 
@@ -113,5 +121,18 @@ rainbowBtn.addEventListener('click', () => {
     currentMode = 'rainbow'
     rainbowBtn.classList.add('active')
     darkenBtn.classList.remove('active')
+    eraserBtn.classList.remove('active')
+  }
+})
+
+eraserBtn.addEventListener('click', () => {
+  if (currentMode === 'eraser') {
+    currentMode = 'color'
+    eraserBtn.classList.remove('active')
+  } else {
+    currentMode = 'eraser'
+    eraserBtn.classList.add('active')
+    darkenBtn.classList.remove('active')
+    rainbowBtn.classList.remove('active')
   }
 })
