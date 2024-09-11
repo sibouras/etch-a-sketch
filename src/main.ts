@@ -7,6 +7,7 @@ const inputColor = document.querySelector(
 const modeBtns = document.querySelectorAll(
   '.mode',
 ) as NodeListOf<HTMLButtonElement>
+const clearBtn = document.querySelector('#clear') as HTMLButtonElement
 
 let inputHexColor = inputColor.value
 let currentMode = 'color'
@@ -25,7 +26,7 @@ function fillGrid(size: number) {
   }
 }
 
-fillGrid(20)
+fillGrid(range.valueAsNumber)
 
 // using mouseover + mousedown is better than using mousemove.
 // mousemove event fires many times per second as the mouse is moved around, even
@@ -121,3 +122,8 @@ function handleModeChange(e: MouseEvent) {
 for (const btn of modeBtns) {
   btn.addEventListener('click', handleModeChange)
 }
+
+clearBtn.addEventListener('click', () => {
+  gridContainer.innerHTML = ''
+  fillGrid(range.valueAsNumber)
+})
