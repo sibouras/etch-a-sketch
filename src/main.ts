@@ -101,38 +101,29 @@ inputColor.addEventListener('input', (e) => {
   eraserBtn.classList.remove('active')
 })
 
-darkenBtn.addEventListener('click', () => {
-  if (currentMode === 'darken') {
+function handleModeChange(mode: string, btn: HTMLButtonElement) {
+  if (currentMode === mode) {
     currentMode = 'color'
-    darkenBtn.classList.remove('active')
+    btn.classList.remove('active')
   } else {
-    currentMode = 'darken'
-    darkenBtn.classList.add('active')
-    rainbowBtn.classList.remove('active')
-    eraserBtn.classList.remove('active')
+    currentMode = mode
+    for (const otherBtn of [darkenBtn, rainbowBtn, eraserBtn]) {
+      if (otherBtn !== btn) {
+        otherBtn.classList.remove('active')
+      }
+    }
+    btn.classList.add('active')
   }
+}
+
+darkenBtn.addEventListener('click', () => {
+  handleModeChange('darken', darkenBtn)
 })
 
 rainbowBtn.addEventListener('click', () => {
-  if (currentMode === 'rainbow') {
-    currentMode = 'color'
-    rainbowBtn.classList.remove('active')
-  } else {
-    currentMode = 'rainbow'
-    rainbowBtn.classList.add('active')
-    darkenBtn.classList.remove('active')
-    eraserBtn.classList.remove('active')
-  }
+  handleModeChange('rainbow', rainbowBtn)
 })
 
 eraserBtn.addEventListener('click', () => {
-  if (currentMode === 'eraser') {
-    currentMode = 'color'
-    eraserBtn.classList.remove('active')
-  } else {
-    currentMode = 'eraser'
-    eraserBtn.classList.add('active')
-    darkenBtn.classList.remove('active')
-    rainbowBtn.classList.remove('active')
-  }
+  handleModeChange('eraser', eraserBtn)
 })
