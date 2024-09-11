@@ -7,6 +7,7 @@ const inputColor = document.querySelector(
 const modeBtns = document.querySelectorAll(
   '.mode',
 ) as NodeListOf<HTMLButtonElement>
+const colorBtn = document.querySelector('#color') as HTMLButtonElement
 const clearBtn = document.querySelector('#clear') as HTMLButtonElement
 
 let inputHexColor = inputColor.value
@@ -93,20 +94,33 @@ range.addEventListener('change', (e) => {
   fillGrid((e.target as HTMLInputElement).valueAsNumber)
 })
 
+function colorMode() {
+  if (currentMode !== 'color') {
+    currentMode = 'color'
+    for (const btn of modeBtns) {
+      btn.classList.remove('active')
+    }
+    colorBtn.classList.add('active')
+  }
+}
+
 inputColor.addEventListener('input', (e) => {
   inputHexColor = (e.target as HTMLInputElement).value
-  currentMode = 'color'
-  for (const btn of modeBtns) {
-    btn.classList.remove('active')
-  }
+  colorMode()
 })
 
-function handleModeChange(e: MouseEvent) {
-  const btn = e.target as HTMLButtonElement
+function toggleMode(e: MouseEvent) {
+  const btn = e.target
+  // do nothing when clicking on the input that's inside the color button
+  if (btn instanceof HTMLButtonElement === false) return
   const mode = btn.id
-  if (currentMode === mode) {
-    currentMode = 'color'
-    btn.classList.remove('active')
+
+  if (mode === currentMode) {
+    if (mode !== 'color') {
+      currentMode = 'color'
+      btn.classList.remove('active')
+      colorBtn.classList.add('active')
+    }
   } else {
     currentMode = mode
     for (const otherBtn of modeBtns) {
@@ -119,10 +133,11 @@ function handleModeChange(e: MouseEvent) {
 }
 
 for (const btn of modeBtns) {
-  btn.addEventListener('click', handleModeChange)
+  btn.addEventListener('click', toggleMode)
 }
 
 clearBtn.addEventListener('click', () => {
   gridContainer.innerHTML = ''
   fillGrid(range.valueAsNumber)
+  colorMode()
 })

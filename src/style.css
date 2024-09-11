@@ -94,8 +94,8 @@ button {
   gap: 10px;
   row-gap: 20px;
 
-  .color-container {
-    padding-inline: 5px;
+  #color {
+    padding-right: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +104,7 @@ button {
     input[type="color"] {
       border: 1px solid transparent;
       border-radius: 8px;
-      background-color: hsl(0, 0%, 10%);
+      background-color: transparent;
 
       &:hover {
         border-color: hsl(242, 100%, 70%);
